@@ -6,7 +6,7 @@ categories: [markdown]
 title: Streamlit Bike-App deployed on Heroku
 ---
 
-<p align="left">
+<p align=left>
   <img src="https://raw.githubusercontent.com/Qbiwan/bikeapp-streamlit/master/Demo/demo.gif" alt="animated" />
 </p>
  
