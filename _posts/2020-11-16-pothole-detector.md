@@ -3,7 +3,7 @@ toc: false
 layout: post
 description: Pytorch Sklearn Flask
 categories: [markdown]
-title: Pytorch Computer-Vision Model: Pothole Detector
+title: Pytorch Computer-Vision Model Pothole Detector
 ---
 
 
