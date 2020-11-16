@@ -2,8 +2,8 @@
   
     
         "post0": {
-            "title": "An Example Markdown Post",
-            "content": "Streamlit Bike-App deployed on Heroku . . Bike App is deployed on Heroku live at HERE . https://github.com/Qbiwan/bikeapp-streamlit .",
+            "title": "Streamlit Bike-App deployed on Heroku",
+            "content": "Streamlit Bike-App deployed on Heroku . . Bike App is deployed on Heroku live at HERE . Git Repo .",
             "url": "https://qbiwan.github.io/fastpages/markdown/2020/11/16/streamlit-bike-app.html",
             "relUrl": "/markdown/2020/11/16/streamlit-bike-app.html",
             "date": " • Nov 16, 2020"
