@@ -96,7 +96,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      7 min read
+      15 min read
     
 </span></p>
 
@@ -147,6 +147,23 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#6.-Get-docker-log-file-for-debugging">6. Get docker log file for debugging </a></li>
 <li class="toc-entry toc-h2"><a href="#7.-Name-the-container">7. Name the container </a></li>
 <li class="toc-entry toc-h2"><a href="#8.-Access-the-terminal-inside-the-container">8. Access the terminal inside the container </a></li>
+<li class="toc-entry toc-h2"><a href="#9.-Workflow-with-Docker">9. Workflow with Docker </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Docker-network">Docker network </a></li>
+<li class="toc-entry toc-h3"><a href="#MongoDB">MongoDB </a></li>
+<li class="toc-entry toc-h3"><a href="#Mongo-express">Mongo-express </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#10.-Docker-Compose">10. Docker Compose </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Installing-Docker-Compose">Installing Docker-Compose </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#11.-Build-your-own-Docker-image">11. Build your own Docker image </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Dockerfile-commands">Dockerfile commands </a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul><!--
@@ -897,6 +914,608 @@ window.onload = wrap_img;
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="9.-Workflow-with-Docker">
+<a class="anchor" href="#9.-Workflow-with-Docker" aria-hidden="true"><span class="octicon octicon-link"></span></a>9. Workflow with Docker<a class="anchor-link" href="#9.-Workflow-with-Docker"> </a>
+</h2>
+<p>To create an app that uses Python and MongoDB, you would need to pull the <strong>MongoDB</strong> image from Dockerhub in order to create a database. Thereafter,you start the MongoDB container on your local computer and start working on your python app, which uses the database. Once done, push the python codes to github, which will in turn do continuous integration with your private company server, where your python image will be stored.</p>
+<p>When a software tester wants to do testing,she will download the MongoDB image from Dockerhub and your python image from your company's private repository.Thereafter she will have exactly the same environment as you for her to do the testing.</p>
+<p>First pull the MongoDB image from Dockerhub</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>(base) qbiwan@workspace:~$ docker pull mongo
+Using default tag: latest
+latest: Pulling from library/mongo
+171857c49d0f: Pull complete 
+419640447d26: Pull complete 
+61e52f862619: Pull complete 
+892787ca4521: Pull complete 
+06e2d54757a5: Pull complete 
+e2f7d90822f3: Pull complete 
+f518d3776320: Pull complete 
+feb8e9d469d8: Pull complete 
+e70918e624e3: Pull complete 
+cfd619253c19: Pull complete 
+b4be7d0f542e: Pull complete 
+b1ee54282adf: Pull complete 
+Digest: sha256:7aa0d854df0e958f26e11e83d875d0cccc53fab1ae8da539070adfc41ab58ace
+Status: Downloaded newer image for mongo:latest
+docker.io/library/mongo:latest</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next pull Mongo-express from docker hub</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>(base) qbiwan@workspace:~$ docker pull mongo-express
+Using default tag: latest
+latest: Pulling from library/mongo-express
+cbdbe7a5bc2a: Pull complete 
+8a6c8f014ca2: Pull complete 
+ee08eb21688c: Pull complete 
+a0ba0852b2e6: Pull complete 
+0e13671696b1: Pull complete 
+a5c72a4f2cd3: Pull complete 
+3f3b193cd9a8: Pull complete 
+0cd8c9a3e439: Pull complete 
+Digest: sha256:f9c27742f873b4f109a9560483e64cf9fec70601e4af06d9d335c3a03b231ce7
+Status: Downloaded newer image for mongo-express:latest
+docker.io/library/mongo-express:latest</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Check if both images are in the local computer.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>(base) qbiwan@workspace:~$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+mongo               latest              fb58c9bbce4e        3 days ago          493MB
+postgres            9.6                 bd02fe5289fa        5 days ago          200MB
+postgres            latest              f51c55ac75ed        5 days ago          314MB
+redis               latest              74d107221092        5 days ago          104MB
+mongo-express       latest              ce422f1888a1        7 days ago          130MB
+redis               4.0                 191c4017dcdd        7 months ago        89.3MB
+hello-world         latest              bf756fb1ae65        10 months ago       13.3kB</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Docker-network">
+<a class="anchor" href="#Docker-network" aria-hidden="true"><span class="octicon octicon-link"></span></a>Docker network<a class="anchor-link" href="#Docker-network"> </a>
+</h3>
+<p>List the docker network on your local computer.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>(base) qbiwan@workspace:~$ docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+d2b6834efe5b        bridge              bridge              local
+5ab9de8235fa        host                host                local
+27597918df3b        none                null                local</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Since we require <code>mongo</code> and <code>mongo-express</code> to talk to each other, we will have to create a new docker network on the local computer. Lets call that new docker network <code>mongo-network</code></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>(base) qbiwan@workspace:~$ docker network create mongo-network
+d6923af5421324325d5f22ddc6cba5a0d5f6270e55a8c678f43eea72ae3a9348
+(base) qbiwan@workspace:~$ docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+d2b6834efe5b        bridge              bridge              local
+5ab9de8235fa        host                host                local
+d6923af54213        mongo-network       bridge              local
+27597918df3b        none                null                local</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="MongoDB">
+<a class="anchor" href="#MongoDB" aria-hidden="true"><span class="octicon octicon-link"></span></a>MongoDB<a class="anchor-link" href="#MongoDB"> </a>
+</h3>
+<p>Now we create the MongoDB container by explicitly specifying this newly-created network with the command flag <code>-net mongo-network</code>, as well as other configurations as follows:</p>
+<ul>
+<li>
+<strong>port :</strong> <code>-p 27017:27017</code>
+</li>
+<li>
+<strong>name of this container : </strong> <code>--name mongodb</code>
+</li>
+<li>
+<strong>username to the Mongo database :</strong> <code>-e MONGO_INITDB_ROOT_USERNAME=admin</code>  # not recommended</li>
+<li>
+<strong>password to the Mongo database</strong> <code>e MONGO_INITDB_ROOT_PASSWORD=password</code>  # not recommended</li>
+<li>
+<strong>docker network to join on this computer</strong> <code>-net mongo-network</code>
+</li>
+<li>
+<strong>image used</strong> <code>mongo</code>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>(base) qbiwan@workspace:~$ docker run -d \</p>
+<blockquote>
+<p>-p 27017:27017 &gt; --name mongodb \
+-e MONGO_INITDB_ROOT_USERNAME=admin \
+-e MONGO_INITDB_ROOT_PASSWORD=password \
+--net mongo-network \
+mongo
+6f981e37594075c7830f0298df175ae4aba89608db84e856e232955d61af973c</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Mongo-express">
+<a class="anchor" href="#Mongo-express" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mongo-express<a class="anchor-link" href="#Mongo-express"> </a>
+</h3>
+<p>Next we create mongo-express, the database admin-user interface,so that we can administer the mongo-db
+conveniently with a friendly user-interface. We will use the following configuration. Note that the container will also be 
+inside the new docker network <strong>mongo-network</strong> we just created.</p>
+<ul>
+<li>
+<strong>port :</strong> <code>-p 8081:8081</code>
+</li>
+<li>
+<strong>specify the username for mongo-db :</strong> <code>-e ME_CONFIG_MONGODB_ADMINUSERNAME=admin</code>
+</li>
+<li>
+<strong>specify the password for mongo-db :</strong> <code>-e ME_CONFIG_MONGODB_ADMINPASSWORD=password</code>
+</li>
+<li>
+<strong>the docker network to be a part of :</strong> <code>--net mongo-network</code>
+</li>
+<li>
+<strong>the name of this container :</strong> <code>--name mongo-express</code>
+</li>
+<li>
+<strong>the mongo database that this mongo-express container will be administering :</strong> <code>-e ME_CONFIG_MONGODB_SERVER=mongodb</code>
+</li>
+<li>
+<strong>the image for this container :</strong> <code>mongo-express</code>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="p">:</span><span class="o">~</span><span class="err">$</span> <span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">d</span> \
+<span class="o">&gt;</span> <span class="o">-</span><span class="n">p</span> <span class="mi">8081</span><span class="p">:</span><span class="mi">8081</span> \
+<span class="o">&gt;</span> <span class="o">-</span><span class="n">e</span> <span class="n">ME_CONFIG_MONGODB_ADMINUSERNAME</span><span class="o">=</span><span class="n">admin</span> \
+<span class="o">&gt;</span> <span class="o">-</span><span class="n">e</span> <span class="n">ME_CONFIG_MONGODB_ADMINPASSWORD</span><span class="o">=</span><span class="n">password</span> \
+<span class="o">&gt;</span> <span class="o">--</span><span class="n">net</span> <span class="n">mongo</span><span class="o">-</span><span class="n">network</span> \
+<span class="o">&gt;</span> <span class="o">--</span><span class="n">name</span> <span class="n">mongo</span><span class="o">-</span><span class="n">express</span> \
+<span class="o">&gt;</span> <span class="o">-</span><span class="n">e</span> <span class="n">ME_CONFIG_MONGODB_SERVER</span><span class="o">=</span><span class="n">mongodb</span> \
+<span class="o">&gt;</span> <span class="n">mongo</span><span class="o">-</span><span class="n">express</span>
+<span class="n">ca1865d7f51343ef5dc8bc6513105c1e3ae0af7fa394ad52a9f20b118a33c8f0</span>
+<span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="p">:</span><span class="o">~</span><span class="err">$</span> <span class="n">docker</span> <span class="n">logs</span> <span class="n">mongo</span><span class="o">-</span><span class="n">express</span>
+<span class="n">Waiting</span> <span class="k">for</span> <span class="n">mongodb</span><span class="p">:</span><span class="mf">27017.</span><span class="o">..</span>
+<span class="n">Welcome</span> <span class="n">to</span> <span class="n">mongo</span><span class="o">-</span><span class="n">express</span>
+<span class="o">------------------------</span>
+
+
+<span class="n">Mongo</span> <span class="n">Express</span> <span class="n">server</span> <span class="n">listening</span> <span class="n">at</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">8081</span>
+<span class="n">Server</span> <span class="ow">is</span> <span class="nb">open</span> <span class="n">to</span> <span class="n">allow</span> <span class="n">connections</span> <span class="kn">from</span> <span class="nn">anyone</span> <span class="p">(</span><span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">basicAuth</span> <span class="n">credentials</span> <span class="n">are</span> <span class="s2">"admin:pass"</span><span class="p">,</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">recommended</span> <span class="n">you</span> <span class="n">change</span> <span class="n">this</span> <span class="ow">in</span> <span class="n">your</span> <span class="n">config</span><span class="o">.</span><span class="n">js</span><span class="err">!</span>
+<span class="n">Database</span> <span class="n">connected</span>
+<span class="n">Admin</span> <span class="n">Database</span> <span class="n">connected</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Click on local port <code>http://0.0.0.0:8081</code> and you should be able to access Mongo-express</p>
+<h2 id="10.-Docker-Compose">
+<a class="anchor" href="#10.-Docker-Compose" aria-hidden="true"><span class="octicon octicon-link"></span></a>10. Docker Compose<a class="anchor-link" href="#10.-Docker-Compose"> </a>
+</h2>
+<p>Instead of writing all the commands above, we can do it with docker-compose in a single yaml
+ file. Create a yaml file called <code>mongo-docker-compose.yaml</code> with the following content:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>version:'3'                                       # docker version 
+services:
+  mongodb:                                        # 1st container name
+    image: mongo                                  # which image to build from
+    ports:</p>
+
+<pre><code>  - 27017:27017                               # which ports to map host:container
+environment:                                  # environment variables
+  - MONGO_INITDB_ROOT_USERNAME=admin          
+  - MONGO_INITDB_ROOT_PASSWORD=password
+</code></pre>
+<p>mongo-express:                                  # 2nd container name<br>
+    image: mongo-express                          # which image to build from
+    ports:</p>
+
+<pre><code>  - 8081:8081                                 # which ports to map host:container
+environent:                                   # environment variables
+  - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+  - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+  - ME_CONFIG_MONGODB_SERVER=mongodb</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Installing-Docker-Compose">
+<a class="anchor" href="#Installing-Docker-Compose" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installing Docker-Compose<a class="anchor-link" href="#Installing-Docker-Compose"> </a>
+</h3>
+<p>However, before we let docker-compose do everything for us, we have to install it on our local computer.Use curl to download and run the setup files</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span><span class="n">qbiwan</span><span class="nd">@workspace</span><span class="err">$</span> <span class="n">sudo</span> <span class="n">curl</span> <span class="o">-</span><span class="n">L</span> <span class="s2">"https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)"</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span>  <span class="o">%</span> <span class="n">Total</span>    <span class="o">%</span> <span class="n">Received</span> <span class="o">%</span> <span class="n">Xferd</span>  <span class="n">Average</span> <span class="n">Speed</span>   <span class="n">Time</span>    <span class="n">Time</span>     <span class="n">Time</span>  <span class="n">Current</span>
+                                 <span class="n">Dload</span>  <span class="n">Upload</span>   <span class="n">Total</span>   <span class="n">Spent</span>    <span class="n">Left</span>  <span class="n">Speed</span>
+<span class="mi">100</span>   <span class="mi">651</span>  <span class="mi">100</span>   <span class="mi">651</span>    <span class="mi">0</span>     <span class="mi">0</span>    <span class="mi">733</span>      <span class="mi">0</span> <span class="o">--</span><span class="p">:</span><span class="o">--</span><span class="p">:</span><span class="o">--</span> <span class="o">--</span><span class="p">:</span><span class="o">--</span><span class="p">:</span><span class="o">--</span> <span class="o">--</span><span class="p">:</span><span class="o">--</span><span class="p">:</span><span class="o">--</span>   <span class="mi">733</span>
+<span class="mi">100</span> <span class="mf">11.6</span><span class="n">M</span>  <span class="mi">100</span> <span class="mf">11.6</span><span class="n">M</span>    <span class="mi">0</span>     <span class="mi">0</span>   <span class="mi">906</span><span class="n">k</span>      <span class="mi">0</span>  <span class="mi">0</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">13</span>  <span class="mi">0</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">13</span> <span class="o">--</span><span class="p">:</span><span class="o">--</span><span class="p">:</span><span class="o">--</span> <span class="mi">1796</span><span class="n">k</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then change the permision of the binary files</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span><span class="n">qbiwan</span><span class="nd">@workspace</span><span class="err">$</span> <span class="n">sudo</span> <span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Check if it is installed</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span><span class="n">qbiwan</span><span class="nd">@workspace</span><span class="err">$</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="o">--</span><span class="n">version</span>
+<span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">version</span> <span class="mf">1.27</span><span class="o">.</span><span class="mi">4</span><span class="p">,</span> <span class="n">build</span> <span class="mi">40524192</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Reference: <a href="https://docs.docker.com/compose/install/#install-compose-on-linux-systems">Installing Docker-compose on linux system</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we will be able to run the docker-compose on the file docker-compose.yaml.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>(base) qbiwan@workspace$ docker-compose -f docker-compose.yaml up</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>and we will see the following two containers up as follows</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="err">$</span> <span class="n">docker</span> <span class="n">ps</span>
+<span class="n">CONTAINER</span> <span class="n">ID</span>        <span class="n">IMAGE</span>               <span class="n">COMMAND</span>                  <span class="n">CREATED</span>             <span class="n">STATUS</span>              <span class="n">PORTS</span>                      <span class="n">NAMES</span>
+<span class="n">c735d22a5be6</span>        <span class="n">mongo</span>               <span class="s2">"docker-entrypoint.s…"</span>   <span class="mi">3</span> <span class="n">minutes</span> <span class="n">ago</span>       <span class="n">Up</span> <span class="mi">18</span> <span class="n">seconds</span>       <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">27017</span><span class="o">-&gt;</span><span class="mi">27017</span><span class="o">/</span><span class="n">tcp</span>   <span class="n">desktop_mongodb_1</span>
+<span class="n">e9c55db45662</span>        <span class="n">mongo</span><span class="o">-</span><span class="n">express</span>       <span class="s2">"tini -- /docker-ent…"</span>   <span class="mi">3</span> <span class="n">minutes</span> <span class="n">ago</span>       <span class="n">Up</span> <span class="mi">17</span> <span class="n">seconds</span>       <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">8080</span><span class="o">-&gt;</span><span class="mi">8081</span><span class="o">/</span><span class="n">tcp</span>     <span class="n">desktop_mongo</span><span class="o">-</span><span class="n">express_1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Run the following command and it will shut down the network and the two containers.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="p">:</span><span class="o">~/</span><span class="n">Desktop</span><span class="err">$</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="o">-</span><span class="n">f</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose1</span><span class="o">.</span><span class="n">yaml</span> <span class="n">down</span>
+<span class="n">Stopping</span> <span class="n">desktop_mongodb_1</span>       <span class="o">...</span> <span class="n">done</span>
+<span class="n">Stopping</span> <span class="n">desktop_mongo</span><span class="o">-</span><span class="n">express_1</span> <span class="o">...</span> <span class="n">done</span>
+<span class="n">Removing</span> <span class="n">desktop_mongodb_1</span>       <span class="o">...</span> <span class="n">done</span>
+<span class="n">Removing</span> <span class="n">desktop_mongo</span><span class="o">-</span><span class="n">express_1</span> <span class="o">...</span> <span class="n">done</span>
+<span class="n">Removing</span> <span class="n">network</span> <span class="n">desktop_default</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You will see no container running.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="err">$</span> <span class="n">docker</span> <span class="n">ps</span>
+<span class="n">CONTAINER</span> <span class="n">ID</span>        <span class="n">IMAGE</span>               <span class="n">COMMAND</span>             <span class="n">CREATED</span>             <span class="n">STATUS</span>              <span class="n">PORTS</span>               <span class="n">NAMES</span>
+
+<span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="err">$</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="11.-Build-your-own-Docker-image">
+<a class="anchor" href="#11.-Build-your-own-Docker-image" aria-hidden="true"><span class="octicon octicon-link"></span></a>11. Build your own Docker image<a class="anchor-link" href="#11.-Build-your-own-Docker-image"> </a>
+</h2>
+<p>You have to write your own Dockerfile if you want to build your own docker image. A simple Dockerfile would read like the following.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">FROM</span> <span class="n">node</span><span class="p">:</span><span class="mi">13</span><span class="o">-</span><span class="n">alpine</span>
+    
+<span class="n">ADD</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span> <span class="o">/</span>    
+
+<span class="n">ENV</span> <span class="n">MONGO_DB_USERNAME</span><span class="o">=</span><span class="n">admin</span> \
+    <span class="n">MONGO_DB_PWD</span><span class="o">=</span><span class="n">password</span>
+    
+<span class="n">RUN</span> <span class="n">MKDIR</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">app</span>
+
+<span class="n">COPY</span> <span class="o">.</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">app</span>
+
+<span class="n">CMD</span> <span class="p">[</span><span class="s2">"node"</span><span class="p">,</span> <span class="s2">"server.js"</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Dockerfile-commands">
+<a class="anchor" href="#Dockerfile-commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dockerfile commands<a class="anchor-link" href="#Dockerfile-commands"> </a>
+</h3>
+<p>The commands used above are as followd:</p>
+<ul>
+<li>
+<p><strong>FROM</strong></p>
+<ul>
+<li>install base images, for example<code>FROM tensorflow/tensorflow:2.0.1-gpu</code> or <code>FROM continuumio/miniconda3:4.5.11</code>  </li>
+</ul>
+</li>
+<li>
+<p><strong>ENV</strong></p>
+<ul>
+<li>set the environment variables. For examples <code>ENV FLASK_APP=app.py</code> sets FLASK_APP to be app.py. You could set the environment variables here or in docker-compose, though it is way easier to change the environment variables if you set it in Docker-Compose.yml. This is because once an image is created from a Dockerfile, it cannot be changed. As such, you will need to create build a new image, which is more tedious.  </li>
+</ul>
+</li>
+<li>
+<p><strong>RUN</strong></p>
+<ul>
+<li>run linux commands INSIDE the container. For example <code>RUN mkdir -p /home/app</code> creates a directory recursively in the container (not on your local computer).</li>
+</ul>
+</li>
+<li>
+<p><strong>COPY</strong></p>
+<ul>
+<li>If you’re copying in local files to your Docker image, always use COPY because it’s more explicit. For example, <code>COPY . .</code> copies all files from current dir on your host computer to the home dir on the container. In contrast, if you use <code>RUN copy dirA dirB</code> the files in dirA inside the container gets copied to dirB inside the container.    </li>
+</ul>
+</li>
+<li>
+<p><strong>CMD</strong></p>
+<ul>
+<li>CMD is the entry point command that once the container is built and ready this command will be executed. For example, <code>CMD ["streamlit", "run", ", "app2.py"]</code> will be the first command the containre run once built. Note that this entry-point command can be overwritten during docker run. For example <code>docker run my-app:1.0 env</code> will output all the env variables instead of running app2.py as follows:</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>(base)$ docker run my-app:1.0 env
+NODE_VERSION=13.14.0
+HOSTNAME=d4b4dd5d
+YARN_VERSION=1.22.4
+SHLVL=1
+HOME=/root
+MONGO_DB_USERNAME=admin
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+MONGO_DB_PWD=password
+PWD=/home/app</p>
+
+</div>
+</div>
+</div>
 </div>
 
 
