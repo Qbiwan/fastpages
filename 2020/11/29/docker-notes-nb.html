@@ -130,11 +130,7 @@ window.onload = wrap_img;
     <ul class="section-nav">
 <li class="toc-entry toc-h1"><a href="#Docker-Notes">Docker Notes </a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#1.-How-to-install-docker-on-Ubuntu">1. How to install docker on Ubuntu </a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#Permission-denied-while-trying-to-connect-to-the-Docker-daemon-socket-at-unix:">Permission denied while trying to connect to the Docker daemon socket at unix: </a></li>
-</ul>
-</li>
+<li class="toc-entry toc-h2"><a href="#1.-How-to-install-docker-on-Ubuntu">1. How to install docker on Ubuntu </a></li>
 <li class="toc-entry toc-h2"><a href="#2.-How-to-download-a-Docker-image">2. How to download a Docker image </a></li>
 <li class="toc-entry toc-h2"><a href="#3.-Docker-images">3. Docker images </a></li>
 <li class="toc-entry toc-h2"><a href="#4.-Build-a-container-from-one-of-these-images">4. Build a container from one of these images </a>
@@ -146,8 +142,6 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#5.-Specifying-Ports">5. Specifying Ports </a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#Ports">Ports </a></li>
-<li class="toc-entry toc-h3"><a href="#Mapping-one-host-port-to-two-different-container-ports-(NO)">Mapping one host port to two different container ports (NO) </a></li>
-<li class="toc-entry toc-h3"><a href="#Mapping-two-host-ports-to-one-container-port-(YES)">Mapping two host ports to one container port (YES) </a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#6.-Get-docker-log-file-for-debugging">6. Get docker log file for debugging </a></li>
@@ -204,13 +198,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Reference:</p>
-<ul>
-<li><a href="https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04">https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04</a></li>
-</ul>
-<h3 id="Permission-denied-while-trying-to-connect-to-the-Docker-daemon-socket-at-unix:">
-<a class="anchor" href="#Permission-denied-while-trying-to-connect-to-the-Docker-daemon-socket-at-unix:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Permission denied while trying to connect to the Docker daemon socket at unix:<a class="anchor-link" href="#Permission-denied-while-trying-to-connect-to-the-Docker-daemon-socket-at-unix:"> </a>
-</h3>
+<p>Reference: <a href="https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04">How to Install Docker On Ubuntu 18.04</a></p>
 <p>After you installed Docker, you could have the error message of <code>Permission Denied</code>. You might need to create a docker group if you dont want to use <code>sudo</code> everytime.</p>
 
 </div>
@@ -268,9 +256,8 @@ window.onload = wrap_img;
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Reference:</p>
 <ul>
-<li>
-<a href="https://docs.docker.com/engine/install/linux-postinstall/">https://docs.docker.com/engine/install/linux-postinstall/</a>  </li>
-<li><a href="https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket">https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket</a></li>
+<li><a href="https://docs.docker.com/engine/install/linux-postinstall/">Post-installation steps for Linux</a></li>
+<li><a href="https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket">How to fix docker: Got permission denied while trying to connect to the Docker daemon socket</a></li>
 </ul>
 
 </div>
@@ -403,23 +390,14 @@ window.onload = wrap_img;
 </div>
     
 
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
+<div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">To</span> <span class="n">stop</span> <span class="n">the</span> <span class="n">container</span><span class="p">,</span> <span class="n">we</span> <span class="n">can</span> <span class="n">use</span> <span class="n">its</span> <span class="err">`</span><span class="n">CONTAINER</span> <span class="n">ID</span><span class="err">`</span> <span class="ow">or</span> <span class="err">`</span><span class="n">NAMES</span><span class="err">`</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To stop the container, we can use its <code>CONTAINER ID</code> or <code>NAMES</code></p>
 
 </div>
-    
-
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -493,8 +471,14 @@ window.onload = wrap_img;
 <h4 id="Normal-or-detached-mode">
 <a class="anchor" href="#Normal-or-detached-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Normal or detached mode<a class="anchor-link" href="#Normal-or-detached-mode"> </a>
 </h4>
+<ul>
+<li>
 <p><code>docker run redis</code> will run the container in normal mode. To kill the container just press <code>ctrl-C</code>. `\</p>
+</li>
+<li>
 <p><code>docker run -d redis</code> will run the container in detached mode i.e. in the background. To kill it you have to use <code>docker stop 7e1e07e7cd87</code></p>
+</li>
+</ul>
 
 </div>
 </div>
@@ -594,13 +578,11 @@ window.onload = wrap_img;
 <h3 id="Ports">
 <a class="anchor" href="#Ports" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ports<a class="anchor-link" href="#Ports"> </a>
 </h3>
-<p>You can map the port of the local computer to the port of the container using the flag -p. Foe example, this command <code>-p 8080:8080</code> map port 8080 of your local computer to port 8080 of your container</p>
-<h3 id="Mapping-one-host-port-to-two-different-container-ports-(NO)">
-<a class="anchor" href="#Mapping-one-host-port-to-two-different-container-ports-(NO)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mapping one host port to two different container ports (NO)<a class="anchor-link" href="#Mapping-one-host-port-to-two-different-container-ports-(NO)"> </a>
-</h3>
-<h3 id="Mapping-two-host-ports-to-one-container-port-(YES)">
-<a class="anchor" href="#Mapping-two-host-ports-to-one-container-port-(YES)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mapping two host ports to one container port (YES)<a class="anchor-link" href="#Mapping-two-host-ports-to-one-container-port-(YES)"> </a>
-</h3>
+<p>You can map the port of the local computer to the port of the container using the flag -p. Foe example, this command <code>-p 8080:8080</code> map port 8080 of your local computer to port 8080 of your container. Note that</p>
+<ul>
+<li>Mapping one host port to two different container ports (NO)</li>
+<li>Mapping two host ports to one container port (YES)</li>
+</ul>
 <p><br></p>
 <p>If you tried to map one host port to 2 container ports, you will have a conflict.However, two container ports can be listening on the same port <em>6379</em> while your host computer has two different ports.</p>
 <p>For example, <code>redis:latest</code> and <code>redis:4.0</code> can both be listening on port <em>6379</em>, but your local ports mapped to them must be different. So you must map port <code>6000</code> to <code>redis:latest</code> and <code>6001</code> to <code>redis:9.90</code></p>
@@ -896,16 +878,25 @@ window.onload = wrap_img;
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
 <div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>root@e1cf0aa306db:/# exit
-exit
-(base) qbiwan@workspace:~$</p>
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">root</span><span class="nd">@e1cf0aa306db</span><span class="p">:</span><span class="o">/</span><span class="c1"># exit</span>
+<span class="n">exit</span>
+<span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="p">:</span><span class="o">~</span><span class="err">$</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
 
 </div>
-</div>
-</div>
+    
+
 </div>
 
 
