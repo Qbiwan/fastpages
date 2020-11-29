@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Docker | DataScienceBlog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Docker" />
+<meta name="author" content="Qbiwan" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Reference notes regarding Docker" />
+<meta property="og:description" content="Reference notes regarding Docker" />
+<link rel="canonical" href="https://qbiwan.github.io/fastpages/2020/11/29/docker-notes-nb.html" />
+<meta property="og:url" content="https://qbiwan.github.io/fastpages/2020/11/29/docker-notes-nb.html" />
+<meta property="og:site_name" content="DataScienceBlog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-11-29T00:00:00-06:00" />
+<script type="application/ld+json">
+{"url":"https://qbiwan.github.io/fastpages/2020/11/29/docker-notes-nb.html","@type":"BlogPosting","headline":"Docker","dateModified":"2020-11-29T00:00:00-06:00","datePublished":"2020-11-29T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://qbiwan.github.io/fastpages/2020/11/29/docker-notes-nb.html"},"author":{"@type":"Person","name":"Qbiwan"},"description":"Reference notes regarding Docker","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fastpages/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://qbiwan.github.io/fastpages/feed.xml" title="DataScienceBlog" /><link rel="shortcut icon" type="image/x-icon" href="/fastpages/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fastpages/">DataScienceBlog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/fastpages/about/">About Me</a><a class="page-link" href="/fastpages/search/">Search</a><a class="page-link" href="/fastpages/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Docker</h1><p class="page-description">Reference notes regarding Docker</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-11-29T00:00:00-06:00" itemprop="datePublished">
+        Nov 29, 2020
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Qbiwan</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      7 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/Qbiwan/fastpages/tree/master/_notebooks/2020-11-29-docker-notes-nb.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/fastpages/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/Qbiwan/fastpages/master?filepath=_notebooks%2F2020-11-29-docker-notes-nb.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/fastpages/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/Qbiwan/fastpages/blob/master/_notebooks/2020-11-29-docker-notes-nb.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/fastpages/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#Docker-Notes">Docker Notes </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#1.-How-to-install-docker-on-Ubuntu">1. How to install docker on Ubuntu </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Permission-denied-while-trying-to-connect-to-the-Docker-daemon-socket-at-unix:">Permission denied while trying to connect to the Docker daemon socket at unix: </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#2.-How-to-download-a-Docker-image">2. How to download a Docker image </a></li>
+<li class="toc-entry toc-h2"><a href="#3.-Docker-images">3. Docker images </a></li>
+<li class="toc-entry toc-h2"><a href="#4.-Build-a-container-from-one-of-these-images">4. Build a container from one of these images </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Normal-or-detached-mode">Normal or detached mode </a></li>
+<li class="toc-entry toc-h3"><a href="#Get-all-docker-containers">Get all docker containers </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#5.-Specifying-Ports">5. Specifying Ports </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Ports">Ports </a></li>
+<li class="toc-entry toc-h3"><a href="#Mapping-one-host-port-to-two-different-container-ports-(NO)">Mapping one host port to two different container ports (NO) </a></li>
+<li class="toc-entry toc-h3"><a href="#Mapping-two-host-ports-to-one-container-port-(YES)">Mapping two host ports to one container port (YES) </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#6.-Get-docker-log-file-for-debugging">6. Get docker log file for debugging </a></li>
+<li class="toc-entry toc-h2"><a href="#7.-Name-the-container">7. Name the container </a></li>
+<li class="toc-entry toc-h2"><a href="#8.-Access-the-terminal-inside-the-container">8. Access the terminal inside the container </a></li>
+</ul>
+</li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-11-29-docker-notes-nb.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Docker-Notes">
+<a class="anchor" href="#Docker-Notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Docker Notes<a class="anchor-link" href="#Docker-Notes"> </a>
+</h1>
+<p>Source: <a href="https://www.youtube.com/watch?v=3c-iBn73dDE">Docker Tutorial for Beginners - Full Course in 3 Hours by  TechWorld with Nana</a></p>
+<h2 id="1.-How-to-install-docker-on-Ubuntu">
+<a class="anchor" href="#1.-How-to-install-docker-on-Ubuntu" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. How to install docker on Ubuntu<a class="anchor-link" href="#1.-How-to-install-docker-on-Ubuntu"> </a>
+</h2>
+<ul>
+<li>Update Software Repositories</li>
+<li>Install Docker on Ubuntu 18.04</li>
+<li>If old version of Docker needs to be removed first, refer to this <a href="(https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04">Guide</a>)</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">docker</span><span class="o">.</span><span class="n">io</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Reference:</p>
+<ul>
+<li><a href="https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04">https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04</a></li>
+</ul>
+<h3 id="Permission-denied-while-trying-to-connect-to-the-Docker-daemon-socket-at-unix:">
+<a class="anchor" href="#Permission-denied-while-trying-to-connect-to-the-Docker-daemon-socket-at-unix:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Permission denied while trying to connect to the Docker daemon socket at unix:<a class="anchor-link" href="#Permission-denied-while-trying-to-connect-to-the-Docker-daemon-socket-at-unix:"> </a>
+</h3>
+<p>After you installed Docker, you could have the error message of <code>Permission Denied</code>. You might need to create a docker group if you dont want to use <code>sudo</code> everytime.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="p">:</span><span class="o">~</span><span class="err">$</span> <span class="n">docker</span> <span class="n">ps</span>
+<span class="n">Got</span> <span class="n">permission</span> <span class="n">denied</span> <span class="k">while</span> <span class="n">trying</span> <span class="n">to</span> <span class="n">connect</span> <span class="n">to</span> <span class="n">the</span> <span class="n">Docker</span> <span class="n">daemon</span> <span class="n">socket</span> <span class="n">at</span> <span class="n">unix</span><span class="p">:</span><span class="o">///</span><span class="n">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">sock</span><span class="p">:</span> <span class="n">Get</span> <span class="n">http</span><span class="p">:</span><span class="o">//%</span><span class="k">2Fvar</span>%2Frun%2Fdocker.sock/v1.40/containers/json: dial unix /var/run/docker.sock: connect: permission denied
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Use the  following command to create a docker group since you are not the root user. Test whether it works by running <code>docker run hello-world</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sudo</span> <span class="n">groupadd</span> <span class="n">docker</span>
+<span class="n">sudo</span> <span class="n">usermod</span> <span class="o">-</span><span class="n">aG</span> <span class="n">docker</span> <span class="err">$</span><span class="p">{</span><span class="n">USER</span><span class="p">}</span> 
+<span class="c1"># logout of ubuntu and login again</span>
+<span class="n">newgrp</span> <span class="n">docker</span>
+<span class="n">docker</span> <span class="n">run</span> <span class="n">hello</span><span class="o">-</span><span class="n">world</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Reference:</p>
+<ul>
+<li>
+<a href="https://docs.docker.com/engine/install/linux-postinstall/">https://docs.docker.com/engine/install/linux-postinstall/</a>  </li>
+<li><a href="https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket">https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="2.-How-to-download-a-Docker-image">
+<a class="anchor" href="#2.-How-to-download-a-Docker-image" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. How to download a Docker image<a class="anchor-link" href="#2.-How-to-download-a-Docker-image"> </a>
+</h2>
+<ul>
+<li>Go to <a href="https://hub.docker.com/search?q=&amp;type=image">Docker Hub</a>
+</li>
+<li>search for the image you want e.g. Postgres </li>
+<li>Go to <strong>Docker Pull Command</strong> and  <code>Copy and paste to pull this image</code> </li>
+<li>Copy the command and add your desired version number e.g. <code>docker pull postgres:latest</code> </li>
+<li>run the command on your local terminal</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="p">:</span><span class="o">~</span><span class="err">$</span> <span class="n">docker</span> <span class="n">pull</span> <span class="n">postgres</span><span class="p">:</span><span class="n">latest</span>
+<span class="n">latest</span><span class="p">:</span> <span class="n">Pulling</span> <span class="kn">from</span> <span class="nn">library</span><span class="o">/</span><span class="n">postgres</span>
+<span class="n">Digest</span><span class="p">:</span> <span class="n">sha256</span><span class="p">:</span><span class="mi">839</span><span class="n">d6212e</span>
+<span class="n">Status</span><span class="p">:</span> <span class="n">Image</span> <span class="ow">is</span> <span class="n">up</span> <span class="n">to</span> <span class="n">date</span> <span class="k">for</span> <span class="n">postgres</span><span class="p">:</span><span class="n">latest</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">library</span><span class="o">/</span><span class="n">postgres</span><span class="p">:</span><span class="n">latest</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.-Docker-images">
+<a class="anchor" href="#3.-Docker-images" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Docker images<a class="anchor-link" href="#3.-Docker-images"> </a>
+</h2>
+<p>Run the command <code>docker images</code> on your terminal, and see all the images in your local computer.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">REPOSITORY</span>          <span class="n">TAG</span>                 <span class="n">IMAGE</span> <span class="n">ID</span>            <span class="n">CREATED</span>             <span class="n">SIZE</span>
+<span class="n">postgres</span>            <span class="mf">9.6</span>                 <span class="n">bd02fe5289fa</span>        <span class="mi">4</span> <span class="n">days</span> <span class="n">ago</span>          <span class="mi">200</span><span class="n">MB</span>
+<span class="n">postgres</span>            <span class="n">latest</span>              <span class="n">f51c55ac75ed</span>        <span class="mi">4</span> <span class="n">days</span> <span class="n">ago</span>          <span class="mi">314</span><span class="n">MB</span>
+<span class="n">redis</span>               <span class="n">latest</span>              <span class="mi">74</span><span class="n">d107221092</span>        <span class="mi">4</span> <span class="n">days</span> <span class="n">ago</span>          <span class="mi">104</span><span class="n">MB</span>
+<span class="n">hello</span><span class="o">-</span><span class="n">world</span>         <span class="n">latest</span>              <span class="n">bf756fb1ae65</span>        <span class="mi">10</span> <span class="n">months</span> <span class="n">ago</span>   
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="4.-Build-a-container-from-one-of-these-images">
+<a class="anchor" href="#4.-Build-a-container-from-one-of-these-images" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Build a container from one of these images<a class="anchor-link" href="#4.-Build-a-container-from-one-of-these-images"> </a>
+</h2>
+<p>Let's say you want to build a redis container. You could do it in <em>normal</em> or <em>detached</em> mode</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="n">redis</span>  <span class="c1"># docker run == docker pull plus docker start</span>
+
+<span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">d</span> <span class="n">redis</span>  <span class="c1"># detached mode</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Check if the container is running by using <code>docker ps</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">CONTAINER</span> <span class="n">ID</span>        <span class="n">IMAGE</span>               <span class="n">COMMAND</span>                  <span class="n">CREATED</span>              <span class="n">STATUS</span>              <span class="n">PORTS</span>               <span class="n">NAMES</span>
+<span class="mf">7e1</span><span class="n">e07e7cd87</span>        <span class="n">redis</span>               <span class="s2">"docker-entrypoint.s…"</span>   <span class="n">About</span> <span class="n">a</span> <span class="n">minute</span> <span class="n">ago</span>   <span class="n">Up</span> <span class="n">About</span> <span class="n">a</span> <span class="n">minute</span>   <span class="mi">6379</span><span class="o">/</span><span class="n">tcp</span>            <span class="n">agitated_jennings</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">To</span> <span class="n">stop</span> <span class="n">the</span> <span class="n">container</span><span class="p">,</span> <span class="n">we</span> <span class="n">can</span> <span class="n">use</span> <span class="n">its</span> <span class="err">`</span><span class="n">CONTAINER</span> <span class="n">ID</span><span class="err">`</span> <span class="ow">or</span> <span class="err">`</span><span class="n">NAMES</span><span class="err">`</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docker</span> <span class="n">stop</span> <span class="mf">7e1</span><span class="n">e07e7cd87</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>OR</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docker</span> <span class="n">stop</span> <span class="n">agitated_jennings</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To restart the container, use</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docker</span> <span class="n">start</span> <span class="mf">7e1</span><span class="n">e07e7cd87</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Normal-or-detached-mode">
+<a class="anchor" href="#Normal-or-detached-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Normal or detached mode<a class="anchor-link" href="#Normal-or-detached-mode"> </a>
+</h4>
+<p><code>docker run redis</code> will run the container in normal mode. To kill the container just press <code>ctrl-C</code>. `\</p>
+<p><code>docker run -d redis</code> will run the container in detached mode i.e. in the background. To kill it you have to use <code>docker stop 7e1e07e7cd87</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">CONTAINER</span> <span class="n">ID</span>        <span class="n">IMAGE</span>               <span class="n">COMMAND</span>                  <span class="n">CREATED</span>             <span class="n">STATUS</span>              <span class="n">PORTS</span>               <span class="n">NAMES</span>
+<span class="mi">9</span><span class="n">b4920e8ea00</span>        <span class="n">redis</span>               <span class="s2">"docker-entrypoint.s…"</span>   <span class="mi">4</span> <span class="n">seconds</span> <span class="n">ago</span>       <span class="n">Up</span> <span class="mi">2</span> <span class="n">seconds</span>        <span class="mi">6379</span><span class="o">/</span><span class="n">tcp</span>            <span class="n">angry_stonebraker</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Get-all-docker-containers">
+<a class="anchor" href="#Get-all-docker-containers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get all docker containers<a class="anchor-link" href="#Get-all-docker-containers"> </a>
+</h3>
+<p>To get all docker containers, whether they are still running or had been stopped, use the flag <code>-a</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docker</span> <span class="n">ps</span> <span class="o">-</span><span class="n">a</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This gives you the history of all the containers on your local computer that had been started or stopped</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="p">:</span><span class="o">~</span><span class="err">$</span> <span class="n">docker</span> <span class="n">ps</span> <span class="o">-</span><span class="n">a</span>
+<span class="n">CONTAINER</span> <span class="n">ID</span>        <span class="n">IMAGE</span>               <span class="n">COMMAND</span>                  <span class="n">CREATED</span>             <span class="n">STATUS</span>                         <span class="n">PORTS</span>               <span class="n">NAMES</span>
+<span class="mi">9</span><span class="n">b4920e8ea00</span>        <span class="n">redis</span>               <span class="s2">"docker-entrypoint.s…"</span>   <span class="mi">6</span> <span class="n">minutes</span> <span class="n">ago</span>       <span class="n">Up</span> <span class="mi">2</span> <span class="n">minutes</span>                   <span class="mi">6379</span><span class="o">/</span><span class="n">tcp</span>            <span class="n">angry_stonebraker</span>
+<span class="mf">7e1</span><span class="n">e07e7cd87</span>        <span class="n">redis</span>               <span class="s2">"docker-entrypoint.s…"</span>   <span class="mi">16</span> <span class="n">minutes</span> <span class="n">ago</span>      <span class="n">Exited</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="mi">13</span> <span class="n">minutes</span> <span class="n">ago</span>                          <span class="n">agitated_jennings</span>
+<span class="mi">9754</span><span class="n">a778aae1</span>        <span class="n">postgres</span>            <span class="s2">"docker-entrypoint.s…"</span>   <span class="n">About</span> <span class="n">an</span> <span class="n">hour</span> <span class="n">ago</span>   <span class="n">Exited</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">About</span> <span class="n">an</span> <span class="n">hour</span> <span class="n">ago</span>                       <span class="n">stupefied_mendeleev</span>
+<span class="mi">1</span><span class="n">ff1d23ef217</span>        <span class="n">postgres</span>            <span class="s2">"docker-entrypoint.s…"</span>   <span class="n">About</span> <span class="n">an</span> <span class="n">hour</span> <span class="n">ago</span>   <span class="n">Exited</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">About</span> <span class="n">an</span> <span class="n">hour</span> <span class="n">ago</span>                       <span class="n">stupefied_austin</span>
+<span class="mi">71</span><span class="n">ebc08d4ca1</span>        <span class="n">postgres</span>            <span class="s2">"docker-entrypoint.s…"</span>   <span class="n">About</span> <span class="n">an</span> <span class="n">hour</span> <span class="n">ago</span>   <span class="n">Exited</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">About</span> <span class="n">an</span> <span class="n">hour</span> <span class="n">ago</span>                       <span class="n">serene_hertz</span>
+<span class="n">a33a2fd1ce1e</span>        <span class="n">postgres</span>            <span class="s2">"docker-entrypoint.s…"</span>   <span class="n">About</span> <span class="n">an</span> <span class="n">hour</span> <span class="n">ago</span>   <span class="n">Exited</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">About</span> <span class="n">an</span> <span class="n">hour</span> <span class="n">ago</span>                       <span class="n">festive_shirley</span>
+<span class="n">ab457b78f697</span>        <span class="n">postgres</span>            <span class="s2">"docker-entrypoint.s…"</span>   <span class="n">About</span> <span class="n">an</span> <span class="n">hour</span> <span class="n">ago</span>   <span class="n">Exited</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">About</span> <span class="n">an</span> <span class="n">hour</span> <span class="n">ago</span>                       <span class="n">thirsty_meninsky</span>
+<span class="mi">82</span><span class="n">d5b676655b</span>        <span class="n">postgres</span>            <span class="s2">"docker-entrypoint.s…"</span>   <span class="n">About</span> <span class="n">an</span> <span class="n">hour</span> <span class="n">ago</span>   <span class="n">Exited</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">About</span> <span class="n">an</span> <span class="n">hour</span> <span class="n">ago</span>                       <span class="n">jolly_wiles</span>
+<span class="mi">0</span><span class="n">fdf29868a6a</span>        <span class="n">postgres</span>            <span class="s2">"docker-entrypoint.s…"</span>   <span class="n">About</span> <span class="n">an</span> <span class="n">hour</span> <span class="n">ago</span>   <span class="n">Exited</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">About</span> <span class="n">an</span> <span class="n">hour</span> <span class="n">ago</span>                       <span class="n">wonderful_bassi</span>
+<span class="mi">7</span><span class="n">feacb4236c0</span>        <span class="n">postgres</span>            <span class="s2">"docker-entrypoint.s…"</span>   <span class="mi">2</span> <span class="n">hours</span> <span class="n">ago</span>         <span class="n">Exited</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="mi">2</span> <span class="n">hours</span> <span class="n">ago</span>                             <span class="n">cool_elgamal</span>
+<span class="n">ddcd39d2052b</span>        <span class="n">postgres</span>            <span class="s2">"docker-entrypoint.s…"</span>   <span class="mi">2</span> <span class="n">hours</span> <span class="n">ago</span>         <span class="n">Exited</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="mi">2</span> <span class="n">hours</span> <span class="n">ago</span>                             <span class="n">zen_bell</span>
+<span class="mi">4</span><span class="n">ff893b87a4f</span>        <span class="n">postgres</span><span class="p">:</span><span class="mf">9.6</span>        <span class="s2">"docker-entrypoint.s…"</span>   <span class="mi">2</span> <span class="n">hours</span> <span class="n">ago</span>         <span class="n">Exited</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="mi">2</span> <span class="n">hours</span> <span class="n">ago</span>                             <span class="n">musing_williamson</span>
+<span class="mi">5</span><span class="n">f54933d5d3c</span>        <span class="n">postgres</span><span class="p">:</span><span class="mf">9.6</span>        <span class="s2">"docker-entrypoint.s…"</span>   <span class="mi">2</span> <span class="n">hours</span> <span class="n">ago</span>         <span class="n">Exited</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="mi">2</span> <span class="n">hours</span> <span class="n">ago</span>                             <span class="n">priceless_neumann</span>
+<span class="mi">0</span><span class="n">a193ea79c45</span>        <span class="n">hello</span><span class="o">-</span><span class="n">world</span>         <span class="s2">"/hello"</span>                 <span class="mi">2</span> <span class="n">hours</span> <span class="n">ago</span>         <span class="n">Exited</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="mi">2</span> <span class="n">hours</span> <span class="n">ago</span>                      
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="5.-Specifying-Ports">
+<a class="anchor" href="#5.-Specifying-Ports" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. Specifying Ports<a class="anchor-link" href="#5.-Specifying-Ports"> </a>
+</h2>
+<h3 id="Ports">
+<a class="anchor" href="#Ports" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ports<a class="anchor-link" href="#Ports"> </a>
+</h3>
+<p>You can map the port of the local computer to the port of the container using the flag -p. Foe example, this command <code>-p 8080:8080</code> map port 8080 of your local computer to port 8080 of your container</p>
+<h3 id="Mapping-one-host-port-to-two-different-container-ports-(NO)">
+<a class="anchor" href="#Mapping-one-host-port-to-two-different-container-ports-(NO)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mapping one host port to two different container ports (NO)<a class="anchor-link" href="#Mapping-one-host-port-to-two-different-container-ports-(NO)"> </a>
+</h3>
+<h3 id="Mapping-two-host-ports-to-one-container-port-(YES)">
+<a class="anchor" href="#Mapping-two-host-ports-to-one-container-port-(YES)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mapping two host ports to one container port (YES)<a class="anchor-link" href="#Mapping-two-host-ports-to-one-container-port-(YES)"> </a>
+</h3>
+<p><br></p>
+<p>If you tried to map one host port to 2 container ports, you will have a conflict.However, two container ports can be listening on the same port <em>6379</em> while your host computer has two different ports.</p>
+<p>For example, <code>redis:latest</code> and <code>redis:4.0</code> can both be listening on port <em>6379</em>, but your local ports mapped to them must be different. So you must map port <code>6000</code> to <code>redis:latest</code> and <code>6001</code> to <code>redis:9.90</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="p">:</span><span class="o">~</span><span class="err">$</span> <span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">p6000</span><span class="p">:</span><span class="mi">6379</span> <span class="o">-</span><span class="n">d</span> <span class="n">redis</span>
+<span class="mi">660</span><span class="n">ff75d97d07237d90e7c51f4b7bd16e43d594fbf612379bc6ea1651912ad61</span>
+
+<span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="p">:</span><span class="o">~</span><span class="err">$</span> <span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">p6001</span><span class="p">:</span><span class="mi">6379</span> <span class="o">-</span><span class="n">d</span> <span class="n">redis</span><span class="p">:</span><span class="mf">4.0</span>
+<span class="n">c34abecfaf261521a4c7ad5e0b39af63963cc3ad69f1fd300a6a234258b9a919</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This will not cause a conflict as we can see below</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="p">:</span><span class="o">~</span><span class="err">$</span> <span class="n">docker</span> <span class="n">ps</span>
+<span class="n">CONTAINER</span> <span class="n">ID</span>        <span class="n">IMAGE</span>               <span class="n">COMMAND</span>                  <span class="n">CREATED</span>              <span class="n">STATUS</span>              <span class="n">PORTS</span>                    <span class="n">NAMES</span>
+<span class="n">c34abecfaf26</span>        <span class="n">redis</span><span class="p">:</span><span class="mf">4.0</span>           <span class="s2">"docker-entrypoint.s…"</span>   <span class="mi">11</span> <span class="n">seconds</span> <span class="n">ago</span>       <span class="n">Up</span> <span class="mi">10</span> <span class="n">seconds</span>       <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">6001</span><span class="o">-&gt;</span><span class="mi">6379</span><span class="o">/</span><span class="n">tcp</span>   <span class="n">practical_poitras</span>
+<span class="mi">660</span><span class="n">ff75d97d0</span>        <span class="n">redis</span>               <span class="s2">"docker-entrypoint.s…"</span>   <span class="n">About</span> <span class="n">a</span> <span class="n">minute</span> <span class="n">ago</span>   <span class="n">Up</span> <span class="n">About</span> <span class="n">a</span> <span class="n">minute</span>   <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">6000</span><span class="o">-&gt;</span><span class="mi">6379</span><span class="o">/</span><span class="n">tcp</span>   <span class="n">naughty_archimedes</span>
+<span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="p">:</span><span class="o">~</span><span class="err">$</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="6.-Get-docker-log-file-for-debugging">
+<a class="anchor" href="#6.-Get-docker-log-file-for-debugging" aria-hidden="true"><span class="octicon octicon-link"></span></a>6. Get docker log file for debugging<a class="anchor-link" href="#6.-Get-docker-log-file-for-debugging"> </a>
+</h2>
+<p>To get a docker container's log file, specify the container by its <code>container id</code> or <code>container name</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docker</span> <span class="n">logs</span> <span class="n">c34abecfaf26</span>
+<span class="n">OR</span>
+<span class="n">docker</span> <span class="n">logs</span> <span class="n">practical_poitras</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>this will give you its log file.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="p">:</span><span class="o">~</span><span class="err">$</span> <span class="n">docker</span> <span class="n">logs</span> <span class="n">practical_poitras</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">C</span> <span class="mi">23</span> <span class="n">Nov</span> <span class="mi">14</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">54.196</span> <span class="c1"># oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">C</span> <span class="mi">23</span> <span class="n">Nov</span> <span class="mi">14</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">54.196</span> <span class="c1"># Redis version=4.0.14, bits=64, commit=00000000, modified=0, pid=1, just started</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">C</span> <span class="mi">23</span> <span class="n">Nov</span> <span class="mi">14</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">54.196</span> <span class="c1"># Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">M</span> <span class="mi">23</span> <span class="n">Nov</span> <span class="mi">14</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">54.197</span> <span class="o">*</span> <span class="n">Running</span> <span class="n">mode</span><span class="o">=</span><span class="n">standalone</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mf">6379.</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">M</span> <span class="mi">23</span> <span class="n">Nov</span> <span class="mi">14</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">54.197</span> <span class="c1"># Server initialized</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">M</span> <span class="mi">23</span> <span class="n">Nov</span> <span class="mi">14</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">54.197</span> <span class="c1"># WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">M</span> <span class="mi">23</span> <span class="n">Nov</span> <span class="mi">14</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">54.197</span> <span class="c1"># WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command 'echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled' as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">M</span> <span class="mi">23</span> <span class="n">Nov</span> <span class="mi">14</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mf">54.197</span> <span class="o">*</span> <span class="n">Ready</span> <span class="n">to</span> <span class="n">accept</span> <span class="n">connections</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="7.-Name-the-container">
+<a class="anchor" href="#7.-Name-the-container" aria-hidden="true"><span class="octicon octicon-link"></span></a>7. Name the container<a class="anchor-link" href="#7.-Name-the-container"> </a>
+</h2>
+<p>You can name your container using the flag <code>--name</code> when you use <code>docker run</code> to specify a easily-identifieable name, for example, <code>--name=ml-app</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="p">:</span><span class="o">~</span><span class="err">$</span> <span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">d</span> <span class="o">-</span><span class="n">p6002</span><span class="p">:</span><span class="mi">6379</span> <span class="o">--</span><span class="n">name</span> <span class="n">ml</span><span class="o">-</span><span class="n">app</span> <span class="n">redis</span><span class="p">:</span><span class="mf">4.0</span>
+<span class="n">e1cf0aa306db7e4bfec18b8f65fed1dbe8c3650fadea3d14f64c93b176894489</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You will see this container named accordingly rather than been given a random name such as <code>practical_poitras</code> or <code>naughty_archimedes</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="p">:</span><span class="o">~</span><span class="err">$</span> <span class="n">docker</span> <span class="n">ps</span>
+<span class="n">CONTAINER</span> <span class="n">ID</span>        <span class="n">IMAGE</span>               <span class="n">COMMAND</span>                  <span class="n">CREATED</span>             <span class="n">STATUS</span>              <span class="n">PORTS</span>                    <span class="n">NAMES</span>
+<span class="n">e1cf0aa306db</span>        <span class="n">redis</span><span class="p">:</span><span class="mf">4.0</span>           <span class="s2">"docker-entrypoint.s…"</span>   <span class="mi">9</span> <span class="n">seconds</span> <span class="n">ago</span>       <span class="n">Up</span> <span class="mi">7</span> <span class="n">seconds</span>        <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">6002</span><span class="o">-&gt;</span><span class="mi">6379</span><span class="o">/</span><span class="n">tcp</span>   <span class="n">ml</span><span class="o">-</span><span class="n">app</span>
+<span class="n">c34abecfaf26</span>        <span class="n">redis</span><span class="p">:</span><span class="mf">4.0</span>           <span class="s2">"docker-entrypoint.s…"</span>   <span class="mi">16</span> <span class="n">minutes</span> <span class="n">ago</span>      <span class="n">Up</span> <span class="mi">16</span> <span class="n">minutes</span>       <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">6001</span><span class="o">-&gt;</span><span class="mi">6379</span><span class="o">/</span><span class="n">tcp</span>   <span class="n">practical_poitras</span>
+<span class="mi">660</span><span class="n">ff75d97d0</span>        <span class="n">redis</span>               <span class="s2">"docker-entrypoint.s…"</span>   <span class="mi">17</span> <span class="n">minutes</span> <span class="n">ago</span>      <span class="n">Up</span> <span class="mi">17</span> <span class="n">minutes</span>       <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">6000</span><span class="o">-&gt;</span><span class="mi">6379</span><span class="o">/</span><span class="n">tcp</span>   <span class="n">naughty_archimedes</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="8.-Access-the-terminal-inside-the-container">
+<a class="anchor" href="#8.-Access-the-terminal-inside-the-container" aria-hidden="true"><span class="octicon octicon-link"></span></a>8. Access the terminal inside the container<a class="anchor-link" href="#8.-Access-the-terminal-inside-the-container"> </a>
+</h2>
+<p>To access the terminal inside the container we use the flag <code>-it</code>, where <strong>it</strong> means<strong>interative terminal</strong>. Below we access bash inside a container named <code>redis-third</code> using this command <code>exec -it</code></p>
+<p>To confirm that we successfully accessed the interactive terminal, note that the command promt changed from <code>(base) qbiwan@workspace:~$</code> to <code>root@e1cf0aa306db:/data</code> in this case.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="n">qbiwan</span><span class="nd">@workspace</span><span class="p">:</span><span class="o">~</span><span class="err">$</span> <span class="n">docker</span> <span class="n">exec</span> <span class="o">-</span><span class="n">it</span> <span class="n">redis</span><span class="o">-</span><span class="n">third</span> <span class="n">bash</span>
+<span class="n">root</span><span class="nd">@e1cf0aa306db</span><span class="p">:</span><span class="o">/</span><span class="n">data</span><span class="c1"># </span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>print the current directory we are in, and we can see that we are at <code>/data</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">root</span><span class="nd">@e1cf0aa306db</span><span class="p">:</span><span class="o">/</span><span class="n">data</span><span class="c1"># pwd</span>
+<span class="o">/</span><span class="n">data</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Change to parent directory and we find ourselves at root <code>/</code>s</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">root</span><span class="nd">@e1cf0aa306db</span><span class="p">:</span><span class="o">/</span><span class="n">data</span><span class="c1"># cd ..</span>
+<span class="n">root</span><span class="nd">@e1cf0aa306db</span><span class="p">:</span><span class="o">/</span><span class="c1"># pwd</span>
+<span class="o">/</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's list all the directories here</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">root</span><span class="nd">@e1cf0aa306db</span><span class="p">:</span><span class="o">/</span><span class="c1"># ls</span>
+<span class="nb">bin</span>  <span class="n">boot</span>  <span class="n">data</span>  <span class="n">dev</span>  <span class="n">etc</span>  <span class="n">home</span>  <span class="n">lib</span>  <span class="n">lib64</span>  <span class="n">media</span>  <span class="n">mnt</span>  <span class="n">opt</span>  <span class="n">proc</span>  <span class="n">root</span>  <span class="n">run</span>  <span class="n">sbin</span>  <span class="n">srv</span>  <span class="n">sys</span>  <span class="n">tmp</span>  <span class="n">usr</span>  <span class="n">var</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Type <code>exit</code> to get out of the interactive terminal and get back to our local computer</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>root@e1cf0aa306db:/# exit
+exit
+(base) qbiwan@workspace:~$</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="Qbiwan/fastpages"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/fastpages/2020/11/29/docker-notes-nb.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fastpages/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/fastpages/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fastpages/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>My Data Science Page.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/Qbiwan" title="Qbiwan"><svg class="svg-icon grey"><use xlink:href="/fastpages/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/Qbiwan1" title="Qbiwan1"><svg class="svg-icon grey"><use xlink:href="/fastpages/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
