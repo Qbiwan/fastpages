@@ -3,11 +3,12 @@ toc: false
 layout: post
 description: Reinforcement Learning, Gridworld, Value Iteration, served on Streamlit. 
 categories: [markdown]
-title: Reinforcement Learning: solving gridworld through value iteration
+title: Solving gridworld through value iteration (Reinforcement Learning)
 ---
 
 # Reinforcement Learning
 ## Solving gridworld through value iteration
+Git Repo is available [Here](https://github.com/Qbiwan/gridworld_streamlit).
 
 
 
