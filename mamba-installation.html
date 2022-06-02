@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Beginner’s Guide to Mambaforge Installation | fastpages</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Beginner’s Guide to Mambaforge Installation" />
+<meta name="author" content="Quek Wee Yeow" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A Mambaforge installation guide based on Jeremy Howard’s 2022 Walkthru 1 lesson." />
+<meta property="og:description" content="A Mambaforge installation guide based on Jeremy Howard’s 2022 Walkthru 1 lesson." />
+<link rel="canonical" href="https://qbiwan.github.io/fastpages/mamba-installation" />
+<meta property="og:url" content="https://qbiwan.github.io/fastpages/mamba-installation" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-05-29T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Beginner’s Guide to Mambaforge Installation" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Quek Wee Yeow"},"dateModified":"2022-05-29T00:00:00-05:00","datePublished":"2022-05-29T00:00:00-05:00","description":"A Mambaforge installation guide based on Jeremy Howard’s 2022 Walkthru 1 lesson.","headline":"Beginner’s Guide to Mambaforge Installation","mainEntityOfPage":{"@type":"WebPage","@id":"https://qbiwan.github.io/fastpages/mamba-installation"},"url":"https://qbiwan.github.io/fastpages/mamba-installation"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/fastpages/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://qbiwan.github.io/fastpages/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/fastpages/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/fastpages/">fastpages</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/fastpages/about/">About Me</a><a class="page-link" href="/fastpages/search/">Search</a><a class="page-link" href="/fastpages/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Beginner&#39;s Guide to Mambaforge Installation</h1><p class="page-description">A Mambaforge installation guide based on Jeremy Howard's 2022 Walkthru 1 lesson.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-05-29T00:00:00-05:00" itemprop="datePublished">
+        May 29, 2022
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Quek Wee Yeow</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      6 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/fastpages/categories/#mambaforge">mambaforge</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpages/categories/#fastai">fastai</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/fastpages/categories/#walkthu-1">walkthu-1</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#1-check-if-python-is-already-installed-in-your-system">1. Check if Python is already installed in your system</a></li>
+<li class="toc-entry toc-h2"><a href="#2-no-existing-conda-environment-in-your-home-directory">2 No existing Conda environment in your home directory</a></li>
+<li class="toc-entry toc-h2"><a href="#3-no-ipython-and-jupyter-installed-in-your-system-python">3 No ipython and jupyter installed in your system Python</a></li>
+<li class="toc-entry toc-h2"><a href="#4-download-mambaforge">4. Download Mambaforge</a></li>
+<li class="toc-entry toc-h2"><a href="#5-install-mamba">5. Install Mamba</a></li>
+<li class="toc-entry toc-h2"><a href="#6-install-pytorch-and-jupyter">6. Install Pytorch and Jupyter</a></li>
+</ul><p>This installation guide assumes there is already a linux terminal in your system. If you are using Windows, please watch Walkthru 1, 00:14:07, How to setup and use a terminal/shell.</p>
+
+<h2 id="1-check-if-python-is-already-installed-in-your-system">
+<a class="anchor" href="#1-check-if-python-is-already-installed-in-your-system" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Check if Python is already installed in your system</h2>
+
+<ul>
+  <li>
+    <p>Most of the time, you will find an existing version of Python already installed in your machine. This is the system Python, which is used by your system.</p>
+
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>user2022@ubuntu:~$ python
+Python 3.8.10 (default, Mar 15 2022, 12:22:08) 
+[GCC 9.4.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+user2022@ubuntu:~$ which python
+/usr/bin/python
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>This is not the Python we want to be using. We want to install a separate version of Python. Which Python you install is going to make a difference in making how easy everything is. <strong>Mambaforge</strong> is the recommended way to install Python for this course.</p>
+  </li>
+  <li>
+    <p>Next, make sure you are in your <strong>home directory</strong> by typing the command <code class="language-plaintext highlighter-rouge">cd</code><br>
+Use the command <code class="language-plaintext highlighter-rouge">pwd</code> to print out the directory you are currently in. In the example below, the home directory is <code class="language-plaintext highlighter-rouge">/home/user2022@ubuntu/</code></p>
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  user2022@ubuntu:~$ cd
+  user2022@ubuntu:~$ pwd
+  /home/user2022@ubuntu/
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="2-no-existing-conda-environment-in-your-home-directory">
+<a class="anchor" href="#2-no-existing-conda-environment-in-your-home-directory" aria-hidden="true"><span class="octicon octicon-link"></span></a>2 No existing Conda environment in your home directory</h2>
+
+<ul>
+  <li>If, in your home directory, there is any conda environment such as Anaconda, Miniforge, Mambaforge. etc, delete them. If you are unsure about deleting them, move them somewhere else.</li>
+</ul>
+
+<div class="Toast">
+   <span class="Toast-icon"><svg class="octicon octicon-info" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg></span>
+   <span class="Toast-content">If you are confident, remove the directory permanently; if unsure, move the directory elsewhere instead.</span>
+</div>
+
+<ul>
+  <li>
+    <p>In the example below, there is an existing miniconda in the home directory, If you are confident, you can run <code class="language-plaintext highlighter-rouge">rm -rf</code> to remove permanently the conda environment. Note that when you run <code class="language-plaintext highlighter-rouge">rm -rf</code> on a directory, all files and sub-folders will be <strong>removed permanently</strong>.</p>
+
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  user2022@ubuntu:~$ pwd
+  /home/user2022@ubuntu/
+  user2022@ubuntu:~$ ls
+  miniconda
+  user2022@ubuntu:~$ rm -rf miniconda   
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>If you are unsure about removing the conda environment, you may want to keep it. One of the ways, for example, is to use the command <code class="language-plaintext highlighter-rouge">mv</code> to rename it.</p>
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  user2022@ubuntu:~$ pwd
+  /home/user2022@ubuntu/
+  user2022@ubuntu:~$ ls
+  miniconda
+  user2022@ubuntu:~$ mv miniconda miniconda.old    
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="3-no-ipython-and-jupyter-installed-in-your-system-python">
+<a class="anchor" href="#3-no-ipython-and-jupyter-installed-in-your-system-python" aria-hidden="true"><span class="octicon octicon-link"></span></a>3 No ipython and jupyter installed in your system Python</h2>
+
+<ul>
+  <li>
+    <p>Ideally, there should be no <strong>ipython</strong> and <strong>jupyter</strong> in your system Python. Running the command <code class="language-plaintext highlighter-rouge">ipython</code> and <code class="language-plaintext highlighter-rouge">jupyter</code> should give you error messages that both of them can’t be found.</p>
+
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  user2022@ubuntu:~$ ipython
+
+  Command 'ipython' not found, did you mean:
+
+    command 'ipython3' from deb ipython3 (7.13.0-1)
+    command 'bpython' from deb bpython (0.18-3)
+
+  Try: sudo apt install &lt;deb name&gt;
+</code></pre></div>    </div>
+
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  user2022@ubuntu:~$ jupyter
+
+  Command 'jupyter' not found, but can be installed with:
+
+  sudo snap install jupyter       # version 1.0.0, or
+  sudo apt  install jupyter-core  # version 4.6.3-3
+
+  See 'snap info jupyter' for additional versions.
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>If they are already installed, you can remove them by running <code class="language-plaintext highlighter-rouge">pip uninstall ipython</code> and <code class="language-plaintext highlighter-rouge">pip uninstall jupyter</code>. For example,</p>
+
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  user2022@ubuntu:~$ sudo pip uninstall ipython
+  Found existing installation: ipython 8.4.0
+  Uninstalling ipython-8.4.0:
+    Would remove:
+      /home/user2022/.local/bin/ipython3
+      /home/user2022/.local/lib/python3.8/site-packages/IPython/*
+      /home/user2022/.local/lib/python3.8/site-packages/ipython-8.4.0.dist-info/*
+      /home/user2022/.local/share/man/man1/ipython.1
+  Proceed (y/n)? y
+    Successfully uninstalled ipython-8.4.0
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>If you are unable to successfully uninstall them, you might want to remove them using <code class="language-plaintext highlighter-rouge">rm -rf</code>.</p>
+
+    <p>For example, if the ipython in your system Python stubbornly refused to be uninstalled, you can find out where are its files stored, and then remove them permanently.</p>
+
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  user2022@ubuntu:~$ which ipython
+  /home/user2022/.local/bin/ipython
+  user2022@ubuntu:~$ rm -rf /home/user2022/.local/bin/ipython
+  user2022@ubuntu:~$ which ipython
+  user2022@ubuntu:~$ 
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<div class="Toast">
+   <span class="Toast-icon"><svg class="octicon octicon-info" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg></span>
+   <span class="Toast-content">Note that all files and sub-folders in the directory will be removed permanently when you run rm -rf.</span>
+</div>
+
+<h2 id="4-download-mambaforge">
+<a class="anchor" href="#4-download-mambaforge" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Download Mambaforge</h2>
+
+<ul>
+  <li>
+    <p>Create a new directory and named it anything that you like. Below we named it <code class="language-plaintext highlighter-rouge">downloads</code>. Change directory to <code class="language-plaintext highlighter-rouge">downloads</code> using the <code class="language-plaintext highlighter-rouge">cd downloads</code> command.</p>
+
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  user2022@ubuntu:~$ mkdir downloads
+  user2022@ubuntu:~$ cd downloads
+  user2022@ubuntu:~/downloads$ pwd
+  /home/user2022@ubuntu/downloads 
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Click on the following link to visit Conda-forge’s Github page: <a href="https://github.com/conda-forge/miniforge">https://github.com/conda-forge/miniforge</a></p>
+  </li>
+  <li>
+    <p>Scroll down the page until you see <strong>Mambaforge</strong>.</p>
+  </li>
+</ul>
+<figure>
+  <img class="image" srcset="/images//mamba-install/mambaforge.jpg 2w" sizes="1px" src="/images//mamba-install/mambaforge.jpg">
+  
+</figure>
+
+<ul>
+  <li>Select the relevant Mambaforge installer for your OS and Architecture. Mouse over the download link to Copy the link address</li>
+</ul>
+<figure>
+  <img class="image" srcset="/images//mamba-install/mambaforge_download1.jpg 2w" sizes="1px" src="/images//mamba-install/mambaforge_download1.jpg">
+  
+</figure>
+
+<ul>
+  <li>Type the command <code class="language-plaintext highlighter-rouge">wget</code>, then paste the download link you have copied from the previous step. This will download the installer, which is a shell script, from the copied link. Once successfully downloaded, the shell script ending with .sh should be in the folder.
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  user2022@ubuntu:~/downloads$ wget https://github.com/.../Mambaforge-Linux-x86_64.sh
+  user2022@ubuntu:~/downloads$ls
+  Mambaforge-Linux-x86_64.sh    
+</code></pre></div>    </div>
+    <details>
+  <summary> What's inside this Mambaforge shell script? </summary>
+
+  To look at what is inside this downloaded .sh file, run the following command:<br>
+  less Mambaforge-Linux-x86_64.sh  <br>  
+  Note that the filename may vary, depending on which file you'd downloaded. You will see the commands that shell will run, line by line, to install Mambaforge.<br>  
+  Press the letter q to quit reading.
+</details>
+  </li>
+</ul>
+
+<h2 id="5-install-mamba">
+<a class="anchor" href="#5-install-mamba" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. Install Mamba</h2>
+
+<ul>
+  <li>
+    <p>Let’s intall Mambaforge by running the shell script using <code class="language-plaintext highlighter-rouge">bash</code>.</p>
+
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> user2022@ubuntu:~/downloads$ bash Mambaforge-Linux-x86_64.sh 
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>This will start the installation process. You should see the following messages in your teminal.</p>
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  Welcome to Mambaforge 4.12.0-0
+
+  In order to continue the installation process, please review the license
+  agreement.
+  Please, press ENTER to continue
+  &gt;&gt;&gt; 
+</code></pre></div>    </div>
+    <p>Type <code class="language-plaintext highlighter-rouge">yes</code> to accept the license terms.</p>
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  Do you accept the license terms? [yes|no]
+  [no] &gt;&gt;&gt; yes
+</code></pre></div>    </div>
+    <p>Press <code class="language-plaintext highlighter-rouge">Enter</code> to confirm the location of the installation. Note that by default Mambaforge will be installed in your home directory. In the example below, that location is <code class="language-plaintext highlighter-rouge">home/user2022@ubuntu/mambaforge</code>.</p>
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  Mambaforge will now be installed into this location:
+  /home/user2022/mambaforge
+
+    - Press ENTER to confirm the location
+    - Press CTRL-C to abort the installation
+    - Or specify a different location below
+
+  [/home/user2022/mambaforge] &gt;&gt;&gt; 
+</code></pre></div>    </div>
+    <p>Type <code class="language-plaintext highlighter-rouge">yes</code> make the installer initialize Mambaforge. Next time when you open your terminal, the python environment will be set up automatically for you.</p>
+
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  Transaction finished
+  installation finished.
+  Do you wish the installer to initialize Mambaforge
+  by running conda init? [yes|no]
+  [no] &gt;&gt;&gt; yes
+</code></pre></div>    </div>
+
+    <p>Once <em>conda init</em> is done, it will ask you to <strong>close and restart your terminal</strong>. If the installation is successful, you will see the word <strong>(base)</strong> appearing in front of your shell prompt, upon restarting the terminal. <br>
+  Notice that if you type the command <code class="language-plaintext highlighter-rouge">which python</code>, it will now show a Python that is different from the system Python from Step 1.</p>
+
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  (base) user2022@ubuntu:~$ 
+  (base) user2022@ubuntu:~$ which python
+  /home/user2022/mambaforge/bin/python
+
+</code></pre></div>    </div>
+    <details>
+  <summary> How do I get out of this Python environment? </summary>
+  Use the following two commands: <br>
+  - mamba deactivate: to get out of the environment<br>  
+  - mamba activate: to get back into the environment
+</details>
+  </li>
+</ul>
+
+<h2 id="6-install-pytorch-and-jupyter">
+<a class="anchor" href="#6-install-pytorch-and-jupyter" aria-hidden="true"><span class="octicon octicon-link"></span></a>6. Install Pytorch and Jupyter</h2>
+
+<div class="Toast">
+   <span class="Toast-icon"><svg class="octicon octicon-info" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg></span>
+   <span class="Toast-content">Try using 'mamba install' as much as possible, rather than 'conda install' or 'pip install'</span>
+</div>
+
+<ul>
+  <li>
+    <p>Now that our Python environment has been set up, we can start installing softwares that we need for doing deep-learning, such as jupyterlab, ipython, pytorch …etc.</p>
+
+    <p>It’s <strong>especially important</strong> to have good Pytorch installation and Jupyter installation on your machine. The recommendation is to use <code class="language-plaintext highlighter-rouge">mamba install</code> when installing both of them,as it will give you a more optimized installation in a faster, fuss-free manner.</p>
+  </li>
+  <li>
+    <p>On Pytorch’s <a href="https://pytorch.org/">Install Pytorch</a> page, select your preference. The example below install a cpu version of Pytorch, and assumes that there is no GPU on your laptop. If you have GPU on your machine, select the relevant CUDA version instead. Notice that it is however using <code class="language-plaintext highlighter-rouge">conda install</code>, which we will replace with <code class="language-plaintext highlighter-rouge">mamba install</code>.</p>
+
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> (base) user2022@ubuntu:~$ mamba install pytorch torchvision torchaudio cpuonly -c pytorch
+</code></pre></div>    </div>
+  </li>
+</ul>
+<figure>
+  <img class="image" srcset="/images//mamba-install/pytorch.png 2w" sizes="1px" src="/images//mamba-install/pytorch.png">
+  
+</figure>
+
+<ul>
+  <li>
+    <p>On Jupyterlab’s <a href="https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html">Installation</a> page, the installation command is <code class="language-plaintext highlighter-rouge">mamba install -c conda-forge jupyterlab</code>. Since the default channel for mamba is already conda-forge, we can simply ran</p>
+
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  (base) user2022@ubuntu:~$ mamba install jupyterlab
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>The End</p>
+  </li>
+</ul>
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="Qbiwan/fastpages"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/fastpages/mamba-installation" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/fastpages/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/fastpages/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/fastpages/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" target="_blank" title="fastai"><svg class="svg-icon grey"><use xlink:href="/fastpages/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" target="_blank" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/fastpages/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
