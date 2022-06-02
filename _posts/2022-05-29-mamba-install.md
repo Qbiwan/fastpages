@@ -239,3 +239,14 @@ Use the command `pwd` to print out the directory you are currently in. In the ex
 
 - That's all. Have fun!
 
+![](../images/pytorch.jpg) 
+
+![](../images/pytorch.png)  
+
+![](../images/mamba-install/pytorch.jpg)   
+
+![](../images/mamba-install/pytorch.png)
+
+![](pytorch.jpg) 
+
+![](pytorch.png) 
