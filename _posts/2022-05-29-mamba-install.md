@@ -11,7 +11,11 @@ author: Quek Wee Yeow
 permalink: /mamba-installation
 ---
 
-This installation guide assumes there is already a linux terminal in your system. If you are using Windows, please watch Walkthru 1, 00:14:07, How to setup and use a terminal/shell.
+- We will be using the Linux shell to install Mambaforge. For Mac and Windows users new to using the terminal, refer to the following: 
+
+  - For Mac Users, refer to Apple's [Terminal User Guide](https://support.apple.com/en-sg/guide/terminal/apd5265185d-f365-44cb-8b09-71a064a42125/mac)
+
+  - For Windows Users, refer to Microsoft's [Install Linux on Windows with WSL](https://docs.microsoft.com/en-us/windows/wsl/install). 
 
 ## 1. Check if Python is already installed in your system
 
@@ -134,11 +138,13 @@ Use the command `pwd` to print out the directory you are currently in. In the ex
 - Click on the following link to visit Conda-forge's Github page: [https://github.com/conda-forge/miniforge](https://github.com/conda-forge/miniforge)
 
 - Scroll down the page until you see **Mambaforge**. 
-{% include screenshot url="mamba-install/mambaforge.jpg" %}
+
+    ![](images/mamba-install/mambaforge.jpg) 
 
 
 - Select the relevant Mambaforge installer for your OS and Architecture. Mouse over the download link to Copy the link address  
-{% include screenshot url="mamba-install/mambaforge_download1.jpg" %}  
+
+    ![](images/mamba-install/mambaforge_download1.jpg)  
 
 
 - Type the command `wget`, then paste the download link you have copied from the previous step. This will download the installer, which is a shell script, from the copied link. Once successfully downloaded, the shell script ending with .sh should be in the folder. 
@@ -230,7 +236,8 @@ Use the command `pwd` to print out the directory you are currently in. In the ex
     ```
     (base) user2022@ubuntu:~$ mamba install pytorch torchvision torchaudio cpuonly -c pytorch
     ```
-{% include screenshot url="mamba-install/pytorch.png" %}  
+
+    ![](images/mamba-install/pytorch.png)  
 
 - **Installing Jupyter Lab**: on Jupyterlab's [Installation](https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html) page, the installation command is `mamba install -c conda-forge jupyterlab`. Since the default channel for mamba is already conda-forge, we can simply ran
 
@@ -240,14 +247,9 @@ Use the command `pwd` to print out the directory you are currently in. In the ex
 
 - That's all. Have fun!
 
-![](../images/pytorch.jpg) 
+    ```
+    (base) user2022@ubuntu:~$ jupyter lab
+    ```
 
-![](../images/pytorch.png)  
-
-![](../images/mamba-install/pytorch.jpg)   
-
-![](../images/mamba-install/pytorch.png)
-
-![](pytorch.jpg) 
-
-![](pytorch.png) 
+- P.S. After running `rm -rf` a few times and removing permanently files you shouldn't, you'll get used to it. I did. 
+:laughing:
