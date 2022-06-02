@@ -43,7 +43,7 @@ Use the command `pwd` to print out the directory you are currently in. In the ex
     ```
 
 
-## 2 No existing Conda environment in your home directory 
+## 2. No existing Conda environment in your home directory 
 
 - If, in your home directory, there is any conda environment such as Anaconda, Miniforge, Mambaforge. etc, delete them. If you are unsure about deleting them, move them somewhere else. 
 
@@ -68,7 +68,7 @@ Use the command `pwd` to print out the directory you are currently in. In the ex
     user2022@ubuntu:~$ mv miniconda miniconda.old    
     ```
 
-## 3 No ipython and jupyter installed in your System Python
+## 3. No ipython and jupyter installed in your System Python
 
 - Ideally, there should be no **ipython** and **jupyter** in your system Python. Running the command `ipython` and `jupyter` should give you error messages that both of them can't be found.
 
