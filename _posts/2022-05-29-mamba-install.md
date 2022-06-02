@@ -15,7 +15,7 @@ This installation guide assumes there is already a linux terminal in your system
 
 ## 1. Check if Python is already installed in your system
 
-- Most of the time, you will find an existing version of Python already installed in your machine. This is the system Python, which is used by your system.  
+- Most of the time, you will find an existing version of Python already installed in your machine. This is the System Python, which is used by your system.  
 
    
 
@@ -64,7 +64,7 @@ Use the command `pwd` to print out the directory you are currently in. In the ex
     user2022@ubuntu:~$ mv miniconda miniconda.old    
     ```
 
-## 3 No ipython and jupyter installed in your system Python
+## 3 No ipython and jupyter installed in your System Python
 
 - Ideally, there should be no **ipython** and **jupyter** in your system Python. Running the command `ipython` and `jupyter` should give you error messages that both of them can't be found.
 
@@ -122,7 +122,7 @@ Use the command `pwd` to print out the directory you are currently in. In the ex
 
 ## 4. Download Mambaforge
 
-- Create a new directory and named it anything that you like. Below we named it `downloads`. Change directory to `downloads` using the `cd downloads` command.
+- Create a new directory and name it anything that you like. Below we named it `downloads`. Change directory to `downloads` by typing `cd downloads`.
 
     ```
     user2022@ubuntu:~$ mkdir downloads
@@ -134,10 +134,11 @@ Use the command `pwd` to print out the directory you are currently in. In the ex
 - Click on the following link to visit Conda-forge's Github page: [https://github.com/conda-forge/miniforge](https://github.com/conda-forge/miniforge)
 
 - Scroll down the page until you see **Mambaforge**. 
-{% include screenshot url="../images/mamba-install/mambaforge.jpg" %}
+{% include screenshot url="mamba-install/mambaforge.jpg" %}
+
 
 - Select the relevant Mambaforge installer for your OS and Architecture. Mouse over the download link to Copy the link address  
-{% include screenshot url="../images/mamba-install/mambaforge_download1.jpg" %}  
+{% include screenshot url="mamba-install/mambaforge_download1.jpg" %}  
 
 
 - Type the command `wget`, then paste the download link you have copied from the previous step. This will download the installer, which is a shell script, from the copied link. Once successfully downloaded, the shell script ending with .sh should be in the folder. 
@@ -157,7 +158,7 @@ Use the command `pwd` to print out the directory you are currently in. In the ex
 
 ## 5. Install Mamba
 
--  Let's intall Mambaforge by running the shell script using `bash`.
+-  Let's install Mambaforge by running the shell script using `bash`.
 
     ```
     user2022@ubuntu:~/downloads$ bash Mambaforge-Linux-x86_64.sh 
@@ -220,18 +221,18 @@ Use the command `pwd` to print out the directory you are currently in. In the ex
 
 - Now that our Python environment has been set up, we can start installing softwares that we need for doing deep-learning, such as jupyterlab, ipython, pytorch ...etc. 
 
-  It's **especially important** to have good Pytorch installation and Jupyter installation on your machine. The recommendation is to use `mamba install` when installing both of them,as it will give you a more optimized installation in a faster, fuss-free manner.
+  It's **especially important** to have good Pytorch and Jupyter installation on your machine. The recommendation is to use `mamba install` when installing both of them, as it will give you a more optimized installation in a faster, fuss-free manner.
 
 
 
- - On Pytorch's [Install Pytorch](https://pytorch.org/) page, select your preference. The example below install a cpu version of Pytorch, and assumes that there is no GPU on your laptop. If you have GPU on your machine, select the relevant CUDA version instead. Notice that it is however using `conda install`, which we will replace with `mamba install`.
+ - **Installing Pytorch**: on Pytorch's [Install Pytorch](https://pytorch.org/) page, select your preference. The example below install a cpu version of Pytorch, and assumes that there is no GPU on your laptop. If you have GPU on your machine, select the relevant CUDA version instead. Notice that it is however using `conda install`, which we will replace with `mamba install`.
 
     ```
     (base) user2022@ubuntu:~$ mamba install pytorch torchvision torchaudio cpuonly -c pytorch
     ```
-{% include screenshot url="../images/mamba-install/pytorch.png" %}  
+{% include screenshot url="mamba-install/pytorch.png" %}  
 
-- On Jupyterlab's [Installation](https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html) page, the installation command is `mamba install -c conda-forge jupyterlab`. Since the default channel for mamba is already conda-forge, we can simply ran
+- **Installing Jupyter Lab**: on Jupyterlab's [Installation](https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html) page, the installation command is `mamba install -c conda-forge jupyterlab`. Since the default channel for mamba is already conda-forge, we can simply ran
 
     ```
     (base) user2022@ubuntu:~$ mamba install jupyterlab
