@@ -134,10 +134,10 @@ Use the command `pwd` to print out the directory you are currently in. In the ex
 - Click on the following link to visit Conda-forge's Github page: [https://github.com/conda-forge/miniforge](https://github.com/conda-forge/miniforge)
 
 - Scroll down the page until you see **Mambaforge**. 
-{% include screenshot url="/mamba-install/mambaforge.jpg" %}
+{% include screenshot url="../images/mamba-install/mambaforge.jpg" %}
 
 - Select the relevant Mambaforge installer for your OS and Architecture. Mouse over the download link to Copy the link address  
-{% include screenshot url="/mamba-install/mambaforge_download1.jpg" %}  
+{% include screenshot url="../images/mamba-install/mambaforge_download1.jpg" %}  
 
 
 - Type the command `wget`, then paste the download link you have copied from the previous step. This will download the installer, which is a shell script, from the copied link. Once successfully downloaded, the shell script ending with .sh should be in the folder. 
@@ -229,7 +229,7 @@ Use the command `pwd` to print out the directory you are currently in. In the ex
     ```
     (base) user2022@ubuntu:~$ mamba install pytorch torchvision torchaudio cpuonly -c pytorch
     ```
-{% include screenshot url="/mamba-install/pytorch.png" %}  
+{% include screenshot url="../images/mamba-install/pytorch.png" %}  
 
 - On Jupyterlab's [Installation](https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html) page, the installation command is `mamba install -c conda-forge jupyterlab`. Since the default channel for mamba is already conda-forge, we can simply ran
 
@@ -237,4 +237,5 @@ Use the command `pwd` to print out the directory you are currently in. In the ex
     (base) user2022@ubuntu:~$ mamba install jupyterlab
     ```
 
-- The End
+- That's all. Have fun!
+
