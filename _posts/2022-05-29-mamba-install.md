@@ -6,7 +6,7 @@ hide: false
 toc: true
 layout: post
 categories: [mambaforge, fastai, walkthu-1]
-image: 
+image: images/mamba-install/mamba_init.png
 author: Quek Wee Yeow
 permalink: /mamba-installation
 ---
