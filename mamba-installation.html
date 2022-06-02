@@ -107,7 +107,7 @@ window.onload = wrap_img;
     <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h2"><a href="#1-check-if-python-is-already-installed-in-your-system">1. Check if Python is already installed in your system</a></li>
 <li class="toc-entry toc-h2"><a href="#2-no-existing-conda-environment-in-your-home-directory">2 No existing Conda environment in your home directory</a></li>
-<li class="toc-entry toc-h2"><a href="#3-no-ipython-and-jupyter-installed-in-your-system-python">3 No ipython and jupyter installed in your system Python</a></li>
+<li class="toc-entry toc-h2"><a href="#3-no-ipython-and-jupyter-installed-in-your-system-python">3 No ipython and jupyter installed in your System Python</a></li>
 <li class="toc-entry toc-h2"><a href="#4-download-mambaforge">4. Download Mambaforge</a></li>
 <li class="toc-entry toc-h2"><a href="#5-install-mamba">5. Install Mamba</a></li>
 <li class="toc-entry toc-h2"><a href="#6-install-pytorch-and-jupyter">6. Install Pytorch and Jupyter</a></li>
@@ -118,7 +118,7 @@ window.onload = wrap_img;
 
 <ul>
   <li>
-    <p>Most of the time, you will find an existing version of Python already installed in your machine. This is the system Python, which is used by your system.</p>
+    <p>Most of the time, you will find an existing version of Python already installed in your machine. This is the System Python, which is used by your system.</p>
 
     <div class="language-plaintext highlighter-rouge">
 <div class="highlight"><pre class="highlight"><code>user2022@ubuntu:~$ python
@@ -181,7 +181,7 @@ Use the command <code class="language-plaintext highlighter-rouge">pwd</code> to
 </ul>
 
 <h2 id="3-no-ipython-and-jupyter-installed-in-your-system-python">
-<a class="anchor" href="#3-no-ipython-and-jupyter-installed-in-your-system-python" aria-hidden="true"><span class="octicon octicon-link"></span></a>3 No ipython and jupyter installed in your system Python</h2>
+<a class="anchor" href="#3-no-ipython-and-jupyter-installed-in-your-system-python" aria-hidden="true"><span class="octicon octicon-link"></span></a>3 No ipython and jupyter installed in your System Python</h2>
 
 <ul>
   <li>
@@ -250,7 +250,7 @@ Use the command <code class="language-plaintext highlighter-rouge">pwd</code> to
 
 <ul>
   <li>
-    <p>Create a new directory and named it anything that you like. Below we named it <code class="language-plaintext highlighter-rouge">downloads</code>. Change directory to <code class="language-plaintext highlighter-rouge">downloads</code> using the <code class="language-plaintext highlighter-rouge">cd downloads</code> command.</p>
+    <p>Create a new directory and name it anything that you like. Below we named it <code class="language-plaintext highlighter-rouge">downloads</code>. Change directory to <code class="language-plaintext highlighter-rouge">downloads</code> by typing <code class="language-plaintext highlighter-rouge">cd downloads</code>.</p>
 
     <div class="language-plaintext highlighter-rouge">
 <div class="highlight"><pre class="highlight"><code>  user2022@ubuntu:~$ mkdir downloads
@@ -267,7 +267,7 @@ Use the command <code class="language-plaintext highlighter-rouge">pwd</code> to
   </li>
 </ul>
 <figure>
-  <img class="image" srcset="/images/../images/mamba-install/mambaforge.jpg 2w" sizes="1px" src="/images/../images/mamba-install/mambaforge.jpg">
+  <img class="image" srcset="/images/mamba-install/mambaforge.jpg 2w" sizes="1px" src="/images/mamba-install/mambaforge.jpg">
   
 </figure>
 
@@ -275,7 +275,7 @@ Use the command <code class="language-plaintext highlighter-rouge">pwd</code> to
   <li>Select the relevant Mambaforge installer for your OS and Architecture. Mouse over the download link to Copy the link address</li>
 </ul>
 <figure>
-  <img class="image" srcset="/images/../images/mamba-install/mambaforge_download1.jpg 2w" sizes="1px" src="/images/../images/mamba-install/mambaforge_download1.jpg">
+  <img class="image" srcset="/images/mamba-install/mambaforge_download1.jpg 2w" sizes="1px" src="/images/mamba-install/mambaforge_download1.jpg">
   
 </figure>
 
@@ -302,7 +302,7 @@ Use the command <code class="language-plaintext highlighter-rouge">pwd</code> to
 
 <ul>
   <li>
-    <p>Let’s intall Mambaforge by running the shell script using <code class="language-plaintext highlighter-rouge">bash</code>.</p>
+    <p>Let’s install Mambaforge by running the shell script using <code class="language-plaintext highlighter-rouge">bash</code>.</p>
 
     <div class="language-plaintext highlighter-rouge">
 <div class="highlight"><pre class="highlight"><code> user2022@ubuntu:~/downloads$ bash Mambaforge-Linux-x86_64.sh 
@@ -374,10 +374,10 @@ Use the command <code class="language-plaintext highlighter-rouge">pwd</code> to
   <li>
     <p>Now that our Python environment has been set up, we can start installing softwares that we need for doing deep-learning, such as jupyterlab, ipython, pytorch …etc.</p>
 
-    <p>It’s <strong>especially important</strong> to have good Pytorch installation and Jupyter installation on your machine. The recommendation is to use <code class="language-plaintext highlighter-rouge">mamba install</code> when installing both of them,as it will give you a more optimized installation in a faster, fuss-free manner.</p>
+    <p>It’s <strong>especially important</strong> to have good Pytorch and Jupyter installation on your machine. The recommendation is to use <code class="language-plaintext highlighter-rouge">mamba install</code> when installing both of them, as it will give you a more optimized installation in a faster, fuss-free manner.</p>
   </li>
   <li>
-    <p>On Pytorch’s <a href="https://pytorch.org/">Install Pytorch</a> page, select your preference. The example below install a cpu version of Pytorch, and assumes that there is no GPU on your laptop. If you have GPU on your machine, select the relevant CUDA version instead. Notice that it is however using <code class="language-plaintext highlighter-rouge">conda install</code>, which we will replace with <code class="language-plaintext highlighter-rouge">mamba install</code>.</p>
+    <p><strong>Installing Pytorch</strong>: on Pytorch’s <a href="https://pytorch.org/">Install Pytorch</a> page, select your preference. The example below install a cpu version of Pytorch, and assumes that there is no GPU on your laptop. If you have GPU on your machine, select the relevant CUDA version instead. Notice that it is however using <code class="language-plaintext highlighter-rouge">conda install</code>, which we will replace with <code class="language-plaintext highlighter-rouge">mamba install</code>.</p>
 
     <div class="language-plaintext highlighter-rouge">
 <div class="highlight"><pre class="highlight"><code> (base) user2022@ubuntu:~$ mamba install pytorch torchvision torchaudio cpuonly -c pytorch
@@ -385,13 +385,13 @@ Use the command <code class="language-plaintext highlighter-rouge">pwd</code> to
   </li>
 </ul>
 <figure>
-  <img class="image" srcset="/images/../images/mamba-install/pytorch.png 2w" sizes="1px" src="/images/../images/mamba-install/pytorch.png">
+  <img class="image" srcset="/images/mamba-install/pytorch.png 2w" sizes="1px" src="/images/mamba-install/pytorch.png">
   
 </figure>
 
 <ul>
   <li>
-    <p>On Jupyterlab’s <a href="https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html">Installation</a> page, the installation command is <code class="language-plaintext highlighter-rouge">mamba install -c conda-forge jupyterlab</code>. Since the default channel for mamba is already conda-forge, we can simply ran</p>
+    <p><strong>Installing Jupyter Lab</strong>: on Jupyterlab’s <a href="https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html">Installation</a> page, the installation command is <code class="language-plaintext highlighter-rouge">mamba install -c conda-forge jupyterlab</code>. Since the default channel for mamba is already conda-forge, we can simply ran</p>
 
     <div class="language-plaintext highlighter-rouge">
 <div class="highlight"><pre class="highlight"><code>  (base) user2022@ubuntu:~$ mamba install jupyterlab
