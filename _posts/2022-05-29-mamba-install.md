@@ -231,7 +231,7 @@ Use the command `pwd` to print out the directory you are currently in. In the ex
 
 
 
- - **Installing Pytorch**: on Pytorch's [Install Pytorch](https://pytorch.org/) page, select your preference. The example below install a cpu version of Pytorch, and assumes that there is no GPU on your laptop. If you have GPU on your machine, select the relevant CUDA version instead. Notice that it is however using `conda install`, which we will replace with `mamba install`.
+ - **Installing Pytorch**: on Pytorch's [Install Pytorch](https://pytorch.org/) page, select your preference. The example below installs a cpu version of Pytorch, and assumes that there is no GPU on your laptop. If you have GPU on your machine, select the relevant CUDA version instead. Notice that it is however using `conda install`, which we will replace with `mamba install`.
 
     ```
     (base) user2022@ubuntu:~$ mamba install pytorch torchvision torchaudio cpuonly -c pytorch
